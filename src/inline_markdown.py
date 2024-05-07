@@ -9,19 +9,19 @@ from textnode import (
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
     new_nodes = []
     for old_node in old_nodes:
-        # Directly add non-matching nodes to the new list
-        if old_node.text_type != text_type:
+        if old_node.text_type != text_type_text:
             new_nodes.append(old_node)
             continue
-        
+        split_nodes = []
         sections = old_node.text.split(delimiter)
-        # Check for an even number of sections, which indicates unclosed markdown
         if len(sections) % 2 == 0:
             raise ValueError("Invalid markdown, formatted section not closed")
-        
-        # Iterate through sections and assign the appropriate text type
-        for i, section in enumerate(sections):
-            if section:  # Skip empty sections
-                node_type = text_type if i % 2 != 0 else text_type_text
-                new_nodes.append(TextNode(section, node_type))
+        for i in range(len(sections)):
+            if sections[i] == "":
+                continue
+            if i % 2 == 0:
+                split_nodes.append(TextNode(sections[i], text_type_text))
+            else:
+                split_nodes.append(TextNode(sections[i], text_type))
+        new_nodes.extend(split_nodes)
     return new_nodes
