@@ -8,7 +8,6 @@ This is a static site generator written in Python. It allows you to easily gener
 - Simple and lightweight
 - Template-based rendering
 - Markdown support
-- Customizable configuration
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
